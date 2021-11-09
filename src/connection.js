@@ -1,18 +1,11 @@
 const mongoose = require("mongoose")
 const {Db_Uri} = require("./config")
+const {connectionOptions} = require("./constants")
 
-const options = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-}
-
-const callback = () => console.log("mongoose connected")
+const callback = () => console.log(`mongoose connected ${Db_Uri}`)
 
 const connect = async () => {
-  return await mongoose.connect(Db_Uri, {...options}, callback)
+  return await mongoose.connect(Db_Uri, {...connectionOptions}, callback)
 }
 
 module.exports = connect
-
-// const url = Db_Uri //"mongodb://localhost:27017/gql-ecommerce"
-// console.log(`database connection string : ${url}`)
