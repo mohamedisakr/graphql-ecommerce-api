@@ -61,11 +61,8 @@ const resolvers = {
       return categoryToUpdate
     },
     deleteCategory: async (parent, {id}, {Category}, info) => {
-      await Category.findByIdAndRemove(id).exec()
-      // , (err, result) => {
-      //   if (err) console.error(err)
-      //   return result
-      // })
+      const categoryToDelete = await Category.findByIdAndDelete(id).exec()
+      return categoryToDelete
     },
   },
   Category: {
