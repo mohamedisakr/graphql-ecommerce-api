@@ -1,24 +1,23 @@
 const {Schema, model} = require("mongoose")
 
-const categorySchema = Schema({
+const schema = {
   name: {
     type: String,
+    trim: true,
     required: true,
+    unique: true,
   },
-  icon: {
-    type: String,
-  },
-  color: {
-    type: String,
-  },
-})
+}
 
-categorySchema.virtual("id").get(function () {
-  return this._id.toHexString()
-})
+const categorySchema = Schema(schema, {timestamps: true})
 
-categorySchema.set("toJSON", {
-  virtuals: true,
-})
+const Category = model("Category", categorySchema)
+module.exports = Category
 
-exports.Category = model("Category", categorySchema)
+// categorySchema.virtual("id").get(function () {
+//   return this._id.toHexString()
+// })
+
+// categorySchema.set("toJSON", {
+//   virtuals: true,
+// })
