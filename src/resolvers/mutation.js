@@ -1,9 +1,10 @@
 const Mutation = {
-  addCategory: async (parent, {name}, {Category}, info) => {
+  // category
+  categoryAdd: async (parent, {name}, {Category}, info) => {
     const category = await Category.create({name})
     return category
   },
-  updateCategory: async (parent, {id, input}, {Category}, info) => {
+  categoryUpdate: async (parent, {id, input}, {Category}, info) => {
     const categoryToUpdate = await Category.findByIdAndUpdate(
       id,
       {...input},
@@ -11,9 +12,27 @@ const Mutation = {
     )
     return categoryToUpdate
   },
-  deleteCategory: async (parent, {id}, {Category}, info) => {
+  categoryDelete: async (parent, {id}, {Category}, info) => {
     const categoryToDelete = await Category.findByIdAndDelete(id).exec()
     return categoryToDelete
+  },
+
+  // product
+  productAdd: async (parent, {input}, {Product}, info) => {
+    const productToAdd = await Product.create({...input})
+    return productToAdd
+  },
+  productUpdate: async (parent, {id, input}, {Product}, info) => {
+    const productToUpdate = await Product.findByIdAndUpdate(
+      id,
+      {...input},
+      {new: true},
+    )
+    return productToUpdate
+  },
+  productDelete: async (parent, {id}, {Product}, info) => {
+    const productToDelete = await Product.findByIdAndDelete(id).exec()
+    return productToDelete
   },
 }
 

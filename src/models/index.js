@@ -1,2 +1,4 @@
 const Category = require("./category")
-module.exports = {Category}
+const Product = require("./product")
+
+module.exports = {Category, Product}
