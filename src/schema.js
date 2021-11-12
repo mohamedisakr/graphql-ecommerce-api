@@ -2,8 +2,13 @@ const {gql} = require("apollo-server-express")
 
 const typeDefs = gql`
   type Query {
+    # // category
     categories: [Category!]!
+    categoryFindById(id: ID!): Category!
+
+    # // product
     products: [Product!]!
+    productFindById(id: ID!): Product!
   }
 
   type Mutation {
