@@ -10,6 +10,13 @@ const Query = {
     return categoryToFind
   },
 
+  categoryGetAllProducts: async (parent, {id}, {Product}, info) => {
+    const allProductsInCategory = await Product.find({category: id})
+      .lean()
+      .exec()
+    return allProductsInCategory
+  },
+
   // product
   products: async (parent, args, {Product}, info) => {
     const products = await Product.find({}).lean().exec()

@@ -5,6 +5,7 @@ const typeDefs = gql`
     # // category
     categories: [Category!]!
     categoryFindById(id: ID!): Category!
+    categoryGetAllProducts(id: ID!): [Product!]!
 
     # // product
     products: [Product!]!
