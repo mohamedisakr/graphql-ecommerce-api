@@ -53,6 +53,31 @@ const Query = {
     }).exec()
     return products
   },
+
+  productSearch: async (parent, {input}, {Product}, info) => {
+    const {sortBy, order, limit, skip, filters} = input
+    let sortCriteria = sortBy ? sortBy : "_id"
+    let orderCriteria = order ? order : "desc"
+    let limitCriteria = limit ? limit : 20
+    const searchKeywords = {}
+
+    for (let key in filters) {
+      if (filters[key].length > 0) {
+        if (key.toLowerCase() === "price".toLowerCase()) {
+          searchKeywords[key] = {$gte: filters[key][0], $lte: filters[key][1]}
+        } else {
+          searchKeywords[key] = filters[key]
+        }
+      }
+    }
+
+    const products = await Product.find(searchKeywords)
+      .sort([[sortCriteria, orderCriteria]])
+      .skip(skip)
+      .limit(limitCriteria)
+      .exec()
+    return products
+  },
 }
 
 module.exports = Query
