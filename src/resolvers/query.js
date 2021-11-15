@@ -12,13 +12,26 @@ const Query = {
 
   // product
   products: async (parent, args, {Product}, info) => {
-    const categories = await Product.find({}).lean().exec()
-    return categories
+    const products = await Product.find({}).lean().exec()
+    return products
   },
 
   productFindById: async (parent, {id}, {Product}, info) => {
-    const categories = await Product.findById(id).lean().exec()
-    return categories
+    const products = await Product.findById(id).lean().exec()
+    return products
+  },
+
+  mostPopularProducts: async (parent, {input}, {Product}, info) => {
+    const {sortBy, order, limit} = input
+    let sortCriteria = sortBy ? sortBy : "createdAt"
+    let orderCriteria = order ? order : "asc"
+    let limitCriteria = limit ? limit : 10
+
+    const products = await Product.find({})
+      .sort([[sortCriteria, orderCriteria]])
+      .limit(limitCriteria)
+      .exec()
+    return products
   },
 }
 

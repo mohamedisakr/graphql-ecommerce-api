@@ -9,6 +9,7 @@ const typeDefs = gql`
     # // product
     products: [Product!]!
     productFindById(id: ID!): Product!
+    mostPopularProducts(input: MostPopularProductsInput): [Product!]!
   }
 
   type Mutation {
@@ -28,10 +29,6 @@ const typeDefs = gql`
     name: String!
     createdAt: String!
     updatedAt: String!
-
-    # color: String!
-    # icon: String!
-    # image: String!
   }
 
   type Product {
@@ -41,6 +38,7 @@ const typeDefs = gql`
     price: Float!
     category: Category
     quantity: Int
+    sold: Int
     photo: String
     shipping: Boolean
     createdAt: String!
@@ -57,6 +55,7 @@ const typeDefs = gql`
     price: Float!
     category: ID!
     quantity: Int
+    sold: Int
     photo: String!
     shipping: Boolean
   }
@@ -69,6 +68,12 @@ const typeDefs = gql`
     quantity: Int
     photo: String!
     shipping: Boolean
+  }
+
+  input MostPopularProductsInput {
+    sortBy: String
+    order: String
+    limit: Int
   }
 `
 module.exports = typeDefs
