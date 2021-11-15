@@ -10,6 +10,7 @@ const typeDefs = gql`
     products: [Product!]!
     productFindById(id: ID!): Product!
     mostPopularProducts(input: MostPopularProductsInput): [Product!]!
+    relatedProducts(id: ID!, input: RelatedProductsInput): [Product!]!
   }
 
   type Mutation {
@@ -74,6 +75,10 @@ const typeDefs = gql`
     sortBy: String
     order: String
     limit: Int
+  }
+
+  input RelatedProductsInput {
+    category: String!
   }
 `
 module.exports = typeDefs

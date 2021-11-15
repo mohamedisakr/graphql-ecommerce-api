@@ -33,6 +33,19 @@ const Query = {
       .exec()
     return products
   },
+
+  relatedProducts: async (parent, {id, input}, {Product}, info) => {
+    //TODO: sorted by sold, limit
+    const {category} = input
+    console.log(`id : ${id}`)
+    console.log(`category : ${category}`)
+    // User.find({ "username": { "$ne": 'admin' } })
+    const products = await Product.find({
+      _id: {$ne: id},
+      category: category,
+    }).exec()
+    return products
+  },
 }
 
 module.exports = Query
